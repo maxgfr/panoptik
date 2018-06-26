@@ -14,7 +14,7 @@
     <meta name="MobileOptimized" content="320">
     <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
-    <title>Panoptik - Error 404</title>
+    <title>Panoptik </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
     <script src="{{ asset('/assets/js/require.min.js') }}"></script>
@@ -35,18 +35,10 @@
     <!-- Input Mask Plugin -->
     <script src="{{ asset('/assets/plugins/input-mask/plugin.js') }}"></script>
   </head>
-  <body class="">
+
+<body class="">
     <div class="page">
-      <div class="page-content">
-        <div class="container text-center">
-          <div class="display-1 text-muted mb-5"><i class="si si-exclamation"></i> 404</div>
-          <h1 class="h2 mb-3">Oops.. You just found an error page..</h1>
-          <p class="h4 text-muted font-weight-normal mb-7">We are sorry but our service is currently not available&hellip;</p>
-          <a class="btn btn-primary" href="javascript:history.back()">
-            <i class="fe fe-arrow-left mr-2"></i>Go back
-          </a>
-        </div>
-      </div>
+        @yield('content')
     </div>
-  </body>
+</body>
 </html>
