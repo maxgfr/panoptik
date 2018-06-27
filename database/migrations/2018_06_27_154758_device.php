@@ -16,6 +16,8 @@ class Device extends Migration
         Schema::create('device', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('users_id')->unsigned()->index();
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

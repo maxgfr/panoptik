@@ -51,7 +51,7 @@
                   <input type="email" class="form-control form-control-lg" placeholder="Enter your email...">
                 </div>
                 <div class="col-12 col-md-3">
-                  <a type="submit" href="/register" class="btn btn-block btn-lg btn-primary">Sign up!</a>
+                  <a href="/register" class="btn btn-block btn-lg btn-primary">Sign up!</a>
                 </div>
               </div>
             </form>

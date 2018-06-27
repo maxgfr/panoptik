@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use App\Device;
 use App\Data;
+use Auth;
 
 class DataController extends Controller
 {
@@ -19,7 +20,7 @@ class DataController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
     }
 
     public function saveOneCaptor($id)
@@ -58,7 +59,6 @@ class DataController extends Controller
             }
         }
         dd('enregistré en bdd');
-        return view('home');
     }
 
     public function saveAllCaptor()
@@ -74,7 +74,7 @@ class DataController extends Controller
                     foreach ($item as $data) {
                         $device = Device::where('name' , $data->device)->first();
                         if ($device == null) {
-                            $device = Device::create(['name' => $data->device]);
+                            $device = Device::create(['name' => $data->device, 'users_id' => Auth()->id]);
                         }
                         if (isset($data->computedLocation)) {
                             $location = [];
@@ -100,6 +100,5 @@ class DataController extends Controller
             }
         }
         dd('enregistré en bdd');
-        return view('home');
     }
 }

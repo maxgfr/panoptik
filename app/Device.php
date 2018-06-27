@@ -27,7 +27,17 @@ class Device extends Model
      */
 
     protected $fillable = [
-        'name'
+        'name', 'users_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function data()
+    {
+        return $this->hasMany(Data::class);
+    }
 
 }
