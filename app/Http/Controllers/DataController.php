@@ -22,12 +22,7 @@ class DataController extends Controller
         //$this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index($id)
+    public function saveOneCaptor($id)
     {
         $client = new Client();
         $req = 'https://backend.sigfox.com/api/devices/'.$id.'/messages';
@@ -57,6 +52,48 @@ class DataController extends Controller
                                 $data_captor = Data::create(['lat' => $location[$current+0], 'lng' => $location[$current+1],'radius' => $location[$current+2], 'time' => $data->time, 'source' => $location[$current+3], 'device_id' => $device->id]);
                             }
                             $current += 4;
+                        }
+                    }
+                }
+            }
+        }
+        dd('enregistré en bdd');
+        return view('home');
+    }
+
+    public function saveAllCaptor()
+    {
+        $all_id = ['38A758','3893C5','386998','38A790','383D3B', '3868A7', '38695B', '38430B', '38A831', '37B9D5'];
+        $client = new Client();
+        for ($it=0; $it<sizeof($all_id); $it++) {
+            $req = 'https://backend.sigfox.com/api/devices/'.$all_id[$it].'/messages';
+            $result = $client->request('GET', $req, ['auth' =>  ['5b333faa9e93a138cd76e33c', '51373ef70a9aacb8f673a0fa1497dcc0']]);
+            if ($result->getStatusCode() == 200) {
+                $items = json_decode($result->getBody());
+                foreach ($items as $item) {
+                    foreach ($item as $data) {
+                        $device = Device::where('name' , $data->device)->first();
+                        if ($device == null) {
+                            $device = Device::create(['name' => $data->device]);
+                        }
+                        if (isset($data->computedLocation)) {
+                            $location = [];
+                            $i = 0;
+                            $max = 1;
+                            foreach ($data->computedLocation as $myinfo) {
+                                $location[$i] = $myinfo;
+                                $i++;
+                                $max++;
+                            }
+                            $nb_batch = $max%4;
+                            $current= 0;
+                            for($j=0; $j<$nb_batch; $j++) {
+                                $data_captor = Data::where('time' , $data->time)->first();
+                                if ($data_captor == null) {
+                                    $data_captor = Data::create(['lat' => $location[$current+0], 'lng' => $location[$current+1],'radius' => $location[$current+2], 'time' => $data->time, 'source' => $location[$current+3], 'device_id' => $device->id]);
+                                }
+                                $current += 4;
+                            }
                         }
                     }
                 }

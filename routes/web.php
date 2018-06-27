@@ -19,5 +19,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/capteur/{id}', 'DataController@saveOneCaptor')->name('data.saveOneCaptor');
 
-Route::get('/capteur/{id}', 'DataController@index')->name('data.index');
+Route::get('/capteur', 'DataController@saveAllCaptor')->name('data.saveAllCaptor');
