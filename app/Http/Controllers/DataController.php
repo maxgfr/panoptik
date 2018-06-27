@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use App\Device;
+use App\Data;
 
 class DataController extends Controller
 {
@@ -31,10 +35,31 @@ class DataController extends Controller
         if ($result->getStatusCode() == 200) {
             $items = json_decode($result->getBody());
             foreach ($items as $item) {
-                $device = Device::create(['name' => $item->device]);
-                dd($device);
+                foreach ($item as $data) {
+                    $device = Device::where('name' , $data->device)->first();
+                    if ($device == null) {
+                        $device = Device::create(['name' => $data->device]);
+                    }
+                    if (isset($data->computedLocation)) {
+                        $location = [];
+                        $i = 0;
+                        $max = 1;
+                        foreach ($data->computedLocation as $myinfo) {
+                            $location[$i] = $myinfo;
+                            $i++;
+                            $max++;
+                        }
+                        $nb_batch = $max%4;
+                        $current= 0;
+                        for($j=0; $j<$nb_batch; $j++) {
+                            $data_captor = Data::create(['lat' => $location[$current+0], 'lng' => $location[$current+1],'radius' => $location[$current+2], 'time' => $data->time, 'source' => $location[$current+3], 'device_id' => $device->id]);
+                            $current += 4;
+                        }
+                    }
+                }
             }
         }
+        dd('enregistré en bdd');
         return view('home');
     }
 }
