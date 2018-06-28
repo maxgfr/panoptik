@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Device;
 use App\Data;
 use Auth;
+use Response;
 
 class DataController extends Controller
 {
@@ -58,7 +59,9 @@ class DataController extends Controller
                 }
             }
         }
-        dd('enregistré en bdd');
+        return Response::json(array(
+                'result' => 'success',
+        ));
     }
 
     public function saveAllCaptor()
@@ -99,6 +102,8 @@ class DataController extends Controller
                 }
             }
         }
-        dd('enregistré en bdd');
+        return Response::json(array(
+                'result' => 'success',
+        ));
     }
 }
