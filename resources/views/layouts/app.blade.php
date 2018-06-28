@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -12,13 +13,26 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="HandheldFriendly" content="True">
     <meta name="MobileOptimized" content="320">
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}" />
     <link rel="shortcut icon" type="image/png" href="{{ asset('favicon.png') }}" />
     <title>Panoptik </title>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
+
+    <!-- Map stuff with leaflet and open street map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin=""/>
+    <link rel="stylesheet" href="{{ asset('css/MarkerCluster.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/MarkerCluster.Default.css') }}" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin=""></script>
+    <script src="{{ asset('js/leaflet.ajax.min.js') }}"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.2.0/dist/leaflet.markercluster.js"></script>
+
     <script src="{{ asset('/assets/js/require.min.js') }}"></script>
     <script>
       requirejs.config({
@@ -36,6 +50,7 @@
     <script src="{{ asset('/assets/plugins/maps-google/plugin.js') }}"></script>
     <!-- Input Mask Plugin -->
     <script src="{{ asset('/assets/plugins/input-mask/plugin.js') }}"></script>
+
   </head>
 
 <body class="">
@@ -45,7 +60,7 @@
           <div class="container">
             <div class="d-flex">
               <a class="header-brand" href="./index.html">
-                <img src="tabler.svg" class="header-brand-img" alt="tabler logo">
+                <img src="{{ asset('/img/panoptik_modif.png') }}" class="header-brand-img" alt="tabler logo">
               </a>
               <div class="d-flex order-lg-2 ml-auto">
                 <div class="nav-item d-none d-md-flex">
