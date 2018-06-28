@@ -35,7 +35,7 @@ class DataController extends Controller
                 foreach ($item as $data) {
                     $device = Device::where('name' , $data->device)->first();
                     if ($device == null) {
-                        $device = Device::create(['name' => $data->device]);
+                        $device = Device::create(['name' => $data->device, 'users_id' => Auth::user()->id]);
                     }
                     if (isset($data->computedLocation)) {
                         $location = [];
@@ -77,7 +77,7 @@ class DataController extends Controller
                     foreach ($item as $data) {
                         $device = Device::where('name' , $data->device)->first();
                         if ($device == null) {
-                            $device = Device::create(['name' => $data->device, 'users_id' => Auth()->id]);
+                            $device = Device::create(['name' => $data->device, 'users_id' => Auth::user()->id]);
                         }
                         if (isset($data->computedLocation)) {
                             $location = [];
