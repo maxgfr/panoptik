@@ -146,6 +146,34 @@ class MapController extends Controller
         return response()->json($data);
     }
 
+    public function index_eta()
+    {
+        return view('map_eta');
+    }
+
+    public function path_eta(Request $request)
+    {
+        $rules = array();
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) {
+            return Response::json(array(
+                    'errors' => $validator->getMessageBag()->toArray(),
+            ));
+        } else {
+            $obj = self::get_intermediate_pos();
+            foreach($obj["routes"][0]["legs"][0]["steps"] as $steps){
+                $start_location_lat = $steps["start_location"]["lat"];
+                $start_location_lng = $steps["start_location"]["lng"];
+                $start_location_duration = $steps["duration"]["value"];
+                $end_location_lat = $steps["end_location"]["lat"];
+                $end_location_lng = $steps["end_location"]["lng"];
+                $data[] = [$start_location_lat, $start_location_lng];
+                $data[] = [$end_location_lat, $end_location_lng];
+            }
+        }
+        return response()->json($data);
+    }
+
     public function get_intermediate_pos(){
 
         // Formate in string for the api call
@@ -178,7 +206,6 @@ class MapController extends Controller
         $context  = stream_context_create($options);
         $result = file_get_contents($api_request, false, $context);
         $obj = json_decode($result, true);
-        dd($obj);
 
         return $obj;
     }
