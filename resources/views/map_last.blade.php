@@ -14,11 +14,13 @@
                   <div class="map-content" id="panomap"></div>
                 </div>
               </div>
+              <div class="card-footer text-right">
+                <button type="submit" id="calculate_btn" class="btn btn-primary">Make request</button>
+              </div>
             </div>
           </div>
 
         </div>
-
     </div>
 
     <script>
@@ -79,63 +81,56 @@
             };
 
             $('#calculate_btn').click(function() {
-            mag_id = $('#mag_id').val();
-            from_date = $('#from_date').val();
-            to_date = $('#to_date').val();
 
-
-            get_positions(mag_id, from_date, to_date);
-            get_path(mag_id, from_date, to_date);
+            getDevices();
 
         });
 
-        function get_positions(mag_id, from_date, to_date) {
-          $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-          $.ajax({
-              type: 'POST',
-              url: '/map/position/',
-              data: {},
-              success: function(data){
-                  console.log('Success:', data);
-                  map.removeLayer(containerLayer);
-                  set_markers(data);
-              },
-              error: function (data) {
-                  console.log('Error:', data);
-              }
-          });
-        }
-
-        function get_path(mag_id, from_date, to_date){
-          $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+        function getDevices(){
+            $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
             $.ajax({
                 type: 'POST',
-                url: '/map/path/',
+                url: '/map/position/last',
                 data: {},
                 success: function(data){
                     console.log('Success:', data);
-                    if(typeof path_container != "undefined"){
-                      map.removeLayer(path_container);
-                    }
-                    // create a red polyline from an array of LatLng points
-                    console.log(data);
-                    path_container = new L.polyline(data, {color: 'red'}).addTo(map);
-                    // zoom the map to the polyline
-                    map.fitBounds(path_container.getBounds());
+                    map.removeLayer(containerLayer);
+                    set_markers(data);
                 },
                 error: function (data) {
                     console.log('Error:', data);
                 }
             });
         }
+
+
+        function displayDevices(geojson){
+
+
+            devicesLayer = new L.GeoJSON(geojson, {
+                pointToLayer: function(feature, latlng) {
+                    return L.marker(latlng);
+                }
+            });
+
+            radiusLayer = new L.GeoJSON(geojson, {
+
+                pointToLayer: function(feature, latlng) {
+                    return L.circle(latlng, {
+                        radius: feature.properties.radius
+                    });
+                }
+            });
+
+            map.addLayer(devicesLayer);
+            map.addLayer(radiusLayer);
+
+        }
+
 
         function set_markers(geojson){
             containerLayer = new L.GeoJSON(geojson, {

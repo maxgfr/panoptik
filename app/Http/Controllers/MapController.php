@@ -80,4 +80,32 @@ class MapController extends Controller
         return view('map_last');
     }
 
+    public function position_last(Request $request)
+    {
+        $rules = array();
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) {
+            return Response::json(array(
+                    'errors' => $validator->getMessageBag()->toArray(),
+            ));
+        } else {
+            $devices = Device::all();
+            foreach($devices as $device) {
+                $position = $device->data()->orderBy('time', 'desc')->first();
+                $data['features'][] = array(
+                    'type' => 'Feature',
+                    'id' => $device->id,
+                    'properties' => array('id' => $device->name,
+                                        'radius' => $position->radius
+                                    ),
+                    'geometry' => array(
+                                    'type' => "Point",
+                                    'coordinates' => array( floatval($position->lng), floatval($position->lat))
+                                    )
+                );
+            }
+        }
+        return response()->json($data);
+    }
+
 }
