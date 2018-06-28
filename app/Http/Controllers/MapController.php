@@ -146,6 +146,43 @@ class MapController extends Controller
         return response()->json($data);
     }
 
+    public function get_intermediate_pos(){
+
+        // Formate in string for the api call
+        /*$origin = $origin_pos[0].','.$origin_pos[1];
+        $destination = $site_dest_pos[0].','.$site_dest_pos[1];
+        */
+
+        //Test
+        $devices = Device::all();
+        $stack = array();
+        foreach($devices as $device) {
+            $position = $device->data()->orderBy('time', 'desc')->first();
+            array_push($stack, [$position->lat, $position->lng]);
+        }
+        $array = self::algo_opt($stack);
+        $origin = $array[0].','.$array[1];
+        $destination =  '43.543643,1.511001';
+
+        //----- Get path from google
+        $googleapikey = 'AIzaSyB6jCgdJ4mCpM3yUNjv5YF0zphhM8sfROM';
+        $api_request = 'http://maps.googleapis.com/maps/api/directions/json?origin='.$origin.'&destination='.$destination;
+
+        $options = array(
+        'http' => array(
+          'header'  => "key=".$googleapikey,
+          'method'  => 'GET'
+        )
+        );
+
+        $context  = stream_context_create($options);
+        $result = file_get_contents($api_request, false, $context);
+        $obj = json_decode($result, true);
+        dd($obj);
+
+        return $obj;
+    }
+
     private function algo_opt ($array) {
         $average = self::average($array);
         $new = self::removing_outliers($array, $average);
