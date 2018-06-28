@@ -28,3 +28,5 @@ Route::get('/map', 'MapController@index')->name('map.index');
 Route::post('/map/position', 'MapController@position')->name('map.position');
 
 Route::post('/map/path', 'MapController@path')->name('map.path');
+
+Route::get('/map/last', 'MapController@index_last_pos')->name('map.index_last_pos');

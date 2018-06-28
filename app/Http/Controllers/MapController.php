@@ -75,7 +75,7 @@ class MapController extends Controller
         return response()->json($data);
     }
 
-    public function index()
+    public function index_last_pos()
     {
         return view('map_last');
     }
