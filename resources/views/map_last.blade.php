@@ -99,7 +99,7 @@
                 success: function(data){
                     console.log('Success:', data);
                     map.removeLayer(containerLayer);
-                    set_markers(data);
+                    displayDevices(data);
                 },
                 error: function (data) {
                     console.log('Error:', data);
