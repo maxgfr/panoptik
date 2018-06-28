@@ -146,11 +146,6 @@ class MapController extends Controller
         return response()->json($data);
     }
 
-    public function index_eta()
-    {
-        return view('map_eta');
-    }
-
     public function path_eta(Request $request)
     {
         $rules = array();

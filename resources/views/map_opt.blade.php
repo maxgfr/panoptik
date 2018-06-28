@@ -83,8 +83,36 @@
             $('#calculate_btn').click(function() {
 
             getDevices();
+            get_path();
 
         });
+
+        function get_path(){
+          $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                type: 'POST',
+                url: '/map/path/eta',
+                data: {},
+                success: function(data){
+                    console.log('Success:', data);
+                    if(typeof path_container != "undefined"){
+                      map.removeLayer(path_container);
+                    }
+                    // create a red polyline from an array of LatLng points
+                    console.log(data);
+                    path_container = new L.polyline(data, {color: 'red'}).addTo(map);
+                    // zoom the map to the polyline
+                    map.fitBounds(path_container.getBounds());
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        }
 
         function getDevices(){
             $.ajaxSetup({
