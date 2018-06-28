@@ -35,4 +35,4 @@ Route::post('/map/position/last', 'MapController@position_last')->name('map.posi
 
 Route::get('/map/optimize', 'MapController@index_optimize_pos')->name('map.index_optimize_pos');
 
-Route::get('/map/position/optimize', 'MapController@position_optimize')->name('map.position_optimize');
+Route::post('/map/position/optimize', 'MapController@position_optimize')->name('map.position_optimize');

@@ -114,7 +114,7 @@ class MapController extends Controller
         return view('map_opt');
     }
 
-    public function position_optimize()
+    public function position_optimize(Request $request)
     {
         $rules = array();
         $validator = Validator::make(Input::all(), $rules);
@@ -142,7 +142,7 @@ class MapController extends Controller
             }
         }
         $array = self::algo_opt($stack);
-        dd($stack, $array);
+        $data['result'] = $array;
         return response()->json($data);
     }
 

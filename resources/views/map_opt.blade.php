@@ -94,11 +94,13 @@
               });
             $.ajax({
                 type: 'POST',
-                url: '/map/position/last',
+                url: '/map/position/optimize',
                 data: {},
                 success: function(data){
                     console.log('Success:', data);
                     map.removeLayer(containerLayer);
+                    //Display result of algo
+                	L.circleMarker([data.result[0], data.result[1]], {radius: 5, fillColor: '#5444bf', opacity:1, fillOpacity: 1, color: '#5444bf'}).addTo(map);
                     displayDevices(data);
                 },
                 error: function (data) {
