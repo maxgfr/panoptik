@@ -113,7 +113,7 @@
 
             devicesLayer = new L.GeoJSON(geojson, {
                 pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng);
+                    return L.circleMarker(latlng, {radius: 4, fillOpacity:1});
                 }
             });
 
@@ -121,7 +121,9 @@
 
                 pointToLayer: function(feature, latlng) {
                     return L.circle(latlng, {
-                        radius: feature.properties.radius
+                        radius: feature.properties.radius,
+			fillOpacity:0.05,
+			weight:2
                     });
                 }
             });
@@ -141,6 +143,9 @@
             });
             map.addLayer(containerLayer);
         }
+
+	//Display sigfox office
+	L.circleMarker([48.883525, 2.302450], {radius: 5, fillColor: '#ff0000', opacity:1, fillOpacity: 1, color: '#ff0000'}).addTo(map);
 
         //functions to attach styles and popups to the marker layer
         function highlightDot(e) {
