@@ -10,12 +10,25 @@
                 <h3 class="card-title">My credentials</h3>
               </div>
               <div class="card-body">
+
                   @if(session()->has('success'))
                       <div class="alert alert-success">
-                          <button type="button" class="close" data-dismiss="alert">×</button>
+                          <button type="button" class="close" data-dismiss="alert"></button>
                           {{ session('success') }}
                       </div><br />
                   @endif
+
+                  <div class="row">
+                      <div class="col-lg-9"></div>
+                      <div class="col-lg-3 text-right">
+                          <button class="btn btn-primary btn-block" id="actualize"><i class="fe fe-refresh-ccw"></i> Reload data from sensor</button>
+                      </div>
+                  </div>
+
+                  <div id="reloadNotif" class="alert alert-success invisible">
+                      <button type="button" class="close" data-dismiss="alert"/></button>
+                      Data reloaded
+                  </div><br />
 
                   {!! Form::model($user, [
                       'route' => ['credentials_update', $user],
@@ -59,5 +72,29 @@
 
         </div>
     </div>
+
+    <script>
+
+    $('#actualize').click(function() {
+        $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
+        $.ajax({
+            type: 'GET',
+            url: '/capteur',
+            data: {},
+            success: function(data){
+                console.log('Success:', data);
+                $('#reloadNotif').removeClass('invisible');
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+    });
+
+    </script>
 
 @endsection

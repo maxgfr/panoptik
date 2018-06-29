@@ -35,7 +35,7 @@ class MapController extends Controller
                     'errors' => $validator->getMessageBag()->toArray(),
             ));
         } else {
-            $devices = Device::all();
+            $devices = Device::get();
             foreach($devices as $device) {
                 $positions = $device->data()->get();
                     foreach($positions as $pos){
@@ -65,7 +65,7 @@ class MapController extends Controller
                     'errors' => $validator->getMessageBag()->toArray(),
             ));
         } else {
-            $devices = Device::all();
+            $devices = Device::get();
             foreach($devices as $device) {
                 $positions = $device->data()->get();
                     foreach($positions as $pos){
@@ -90,7 +90,7 @@ class MapController extends Controller
                     'errors' => $validator->getMessageBag()->toArray(),
             ));
         } else {
-            $devices = Device::all();
+            $devices = Device::get();
             foreach($devices as $device) {
                 $position = $device->data()->orderBy('time', 'desc')->first();
                 $data['features'][] = array(
@@ -125,22 +125,24 @@ class MapController extends Controller
                     'errors' => $validator->getMessageBag()->toArray(),
             ));
         } else {
-            $devices = Device::all();
+            $devices = Device::get();
             $stack = array();
             foreach($devices as $device) {
-                $position = $device->data()->orderBy('time', 'desc')->first();
-                $data['features'][] = array(
-                    'type' => 'Feature',
-                    'id' => $device->id,
-                    'properties' => array('id' => $device->name,
-                                        'radius' => $position->radius
-                                    ),
-                    'geometry' => array(
-                                    'type' => "Point",
-                                    'coordinates' => array( floatval($position->lng), floatval($position->lat))
-                                    )
-                );
-                array_push($stack, [$position->lat, $position->lng]);
+                if(!empty($device->data()->get())) {
+                    $position = $device->data()->orderBy('time', 'desc')->first();
+                    $data['features'][] = array(
+                        'type' => 'Feature',
+                        'id' => $device->id,
+                        'properties' => array('id' => $device->name,
+                                            'radius' => $position->radius
+                                        ),
+                        'geometry' => array(
+                                        'type' => "Point",
+                                        'coordinates' => array( floatval($position->lng), floatval($position->lat))
+                                        )
+                    );
+                    array_push($stack, [$position->lat, $position->lng]);
+                }
             }
         }
         $array = self::algo_opt($stack);
@@ -175,7 +177,7 @@ class MapController extends Controller
     private function get_intermediate_pos($lat, $long){
 
         // Formate in string for the api call
-        $devices = Device::all();
+        $devices = Device::get();
         $stack = array();
         foreach($devices as $device) {
             $position = $device->data()->orderBy('time', 'desc')->first();

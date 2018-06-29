@@ -18,13 +18,13 @@
                   </div>
                   @if(session()->has('success'))
                       <div class="alert alert-success">
-                          <button type="button" class="close" data-dismiss="alert">×</button>
+                          <button type="button" class="close" data-dismiss="alert"></button>
                           {{ session('success') }}
                       </div><br />
                   @endif
                   @if(session()->has('error'))
                       <div class="alert alert-danger">
-                          <button type="button" class="close" data-dismiss="alert">×</button>
+                          <button type="button" class="close" data-dismiss="alert"></button>
                           {{ session('error') }}
                       </div><br />
                   @endif

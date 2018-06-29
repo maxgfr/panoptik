@@ -113,10 +113,10 @@
                     <a href="{{route('map.index_optimize_pos')}}" class="nav-link"><i class="fe fe-map"></i> Map</a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('sensor.index')}}" class="nav-link"><i class="fe fe-sensor"></i> Sensors</a>
+                    <a href="{{route('sensor.index')}}" class="nav-link"><i class="fe fe-edit-3"></i> Sensors</a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{route('place.index')}}" class="nav-link"><i class="fe fe-place"></i> Places</a>
+                    <a href="{{route('place.index')}}" class="nav-link"><i class="fe fe-compass"></i> Places</a>
                   </li>
                 </ul>
               </div>
