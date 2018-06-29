@@ -7,7 +7,7 @@
           <div class="col-lg-12 col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Our sensors</h3>
+                <h3 class="card-title">Map</h3>
               </div>
               <div class="card-body">
                 <div class="map">
@@ -15,7 +15,7 @@
                 </div>
               </div>
               <div class="card-footer text-right">
-                <button type="submit" id="calculate_btn" class="btn btn-primary">Make request</button>
+                <button type="submit" id="calculate_btn" class="btn btn-primary">Locate the last position of all of the sensors</button>
               </div>
             </div>
           </div>
@@ -80,11 +80,15 @@
             fillOpacity: 0.9
             };
 
-            $('#calculate_btn').click(function() {
-
-            getDevices();
-            get_path();
-
+        $('#calculate_btn').click(function() {
+            var clicks = $(this).data('clicks');
+            if (clicks) {
+              get_path();
+            } else {
+              getDevices();
+              $("#calculate_btn").html('The path to go there');
+            }
+            $(this).data("clicks", !clicks);
         });
 
         function get_path(){
@@ -174,8 +178,8 @@
             map.addLayer(containerLayer);
         }
 
-	//Display sigfox office
-	L.circleMarker([48.883525, 2.302450], {radius: 5, fillColor: '#ff0000', opacity:1, fillOpacity: 1, color: '#ff0000'}).addTo(map);
+    	//Display sigfox office
+    	L.circleMarker([48.883525, 2.302450], {radius: 5, fillColor: '#ff0000', opacity:1, fillOpacity: 1, color: '#ff0000'}).addTo(map);
 
         //functions to attach styles and popups to the marker layer
         function highlightDot(e) {

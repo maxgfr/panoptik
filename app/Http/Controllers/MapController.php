@@ -22,7 +22,7 @@ class MapController extends Controller
 
     public function index()
     {
-        return view('map');
+        return view('map.map');
     }
 
     public function position(Request $request)
@@ -77,7 +77,7 @@ class MapController extends Controller
 
     public function index_last_pos()
     {
-        return view('map_last');
+        return view('map.map_last');
     }
 
     public function position_last(Request $request)
@@ -111,7 +111,7 @@ class MapController extends Controller
 
     public function index_optimize_pos()
     {
-        return view('map_opt');
+        return view('map.map_opt');
     }
 
     public function position_optimize(Request $request)
