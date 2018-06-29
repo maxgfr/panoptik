@@ -32,7 +32,11 @@
     <nav class="navbar navbar-light bg-light static-top">
       <div class="container">
         <a class="navbar-brand" href="/">Panoptik</a>
-        <a class="btn btn-primary" href="/login">Sign In</a>
+        @guest
+            <a class="btn btn-primary" href="/login">Sign In</a>
+        @else
+            <a class="btn btn-primary" href="/login">Dashboard</a>
+        @endguest
       </div>
     </nav>
 
@@ -43,9 +47,11 @@
         <div class="row">
           <div class="col-xl-9 mx-auto">
             <h1 class="mb-5">Panoptik, a way of thinking through sensors</h1>
-            <div class="form-row">
-              <a href="/register" class="btn btn-block btn-lg btn-primary">Sign up!</a>
-            </div>
+            @guest
+                <div class="form-row">
+                  <a href="/register" class="btn btn-block btn-lg btn-primary">Sign up!</a>
+                </div>
+            @endguest
           </div>
         </div>
       </div>
