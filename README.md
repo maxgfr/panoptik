@@ -2,6 +2,18 @@
 
 A solution which uses Sigfox sensor
 
+## Landing :
+
+![alt text](https://github.com/maxgfr/panoptik/blob/master/documentation/screen/landing.png)
+
+## Register :
+
+![alt text](https://github.com/maxgfr/panoptik/blob/master/documentation/screen/register.png)
+
+## Login :
+
+![alt text](https://github.com/maxgfr/panoptik/blob/master/documentation/screen/login.png)
+
 ## Modify your credentials :
 
 ![alt text](https://github.com/maxgfr/panoptik/blob/master/documentation/screen/credentials.png)
@@ -18,6 +30,6 @@ A solution which uses Sigfox sensor
 
 ![alt text](https://github.com/maxgfr/panoptik/blob/master/documentation/screen/place.png)
 
-## Add a place$ :
+## Find a container in a map :
 
 ![alt text](https://github.com/maxgfr/panoptik/blob/master/documentation/screen/map.png)
