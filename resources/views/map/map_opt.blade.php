@@ -13,7 +13,17 @@
                 <div class="map">
                   <div class="map-content" id="panomap"></div>
                 </div>
-              </div>
+                <div class="form-group">
+                      <div class="form-label">Select the place where you want to go</div>
+                      <div class="custom-controls-stacked">
+                          <label for="mag_id" class="col-sm-3 col-form-label">Localisation</label>
+                          <select id="country" name="country" class="form-control custom-select">
+                              @foreach($place as $pl)
+                                  <option id="{{$pl->id}}" value="{{$pl->id}}">Lat : {{$pl->lat}} ; Long : {{$pl->lng}}</option>
+                              @endforeach
+                          </select>
+                      </div>
+                </div>
               <div class="card-footer text-right">
                 <button type="submit" id="calculate_btn" class="btn btn-primary">Locate the last position of all of the sensors</button>
               </div>
@@ -92,6 +102,11 @@
         });
 
         function get_path(){
+            var option_selected = $('#country').val();
+            var formData = {
+                id : option_selected
+            };
+            console.log(formData);
           $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -100,7 +115,7 @@
             $.ajax({
                 type: 'POST',
                 url: '/map/path/eta',
-                data: {},
+                data: formData,
                 success: function(data){
                     console.log('Success:', data);
                     if(typeof path_container != "undefined"){

@@ -25,11 +25,12 @@ Route::get('/capteur', 'DataController@saveAllCaptor')->name('data.saveAllCaptor
 Route::get('/map', 'MapController@index')->name('map.index');
 Route::post('/map/position', 'MapController@position')->name('map.position');
 Route::post('/map/path', 'MapController@path')->name('map.path');
+
 Route::get('/map/last', 'MapController@index_last_pos')->name('map.index_last_pos');
 Route::post('/map/position/last', 'MapController@position_last')->name('map.position_last');
+
 Route::get('/map/optimize', 'MapController@index_optimize_pos')->name('map.index_optimize_pos');
 Route::post('/map/position/optimize', 'MapController@position_optimize')->name('map.position_optimize');
-Route::get('/map/eta', 'MapController@get_intermediate_pos')->name('map.get_intermediate_pos');
 Route::post('/map/path/eta', 'MapController@path_eta')->name('map.path_eta');
 
 Route::get('/me', 'UserController@index')->name('user_profile');

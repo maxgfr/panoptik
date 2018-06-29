@@ -7,6 +7,7 @@ use App\Device;
 use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
+use App\Place;
 
 class MapController extends Controller
 {
@@ -17,7 +18,7 @@ class MapController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
     }
 
     public function index()
@@ -111,7 +112,8 @@ class MapController extends Controller
 
     public function index_optimize_pos()
     {
-        return view('map.map_opt');
+        $place = Place::get();
+        return view('map.map_opt', compact('place'));
     }
 
     public function position_optimize(Request $request)
@@ -155,7 +157,8 @@ class MapController extends Controller
                     'errors' => $validator->getMessageBag()->toArray(),
             ));
         } else {
-            $obj = self::get_intermediate_pos();
+            $place = Place::findOrFail($request->get('id'));
+            $obj = self::get_intermediate_pos($place->lat, $place->lng);
             foreach($obj["routes"][0]["legs"][0]["steps"] as $steps){
                 $start_location_lat = $steps["start_location"]["lat"];
                 $start_location_lng = $steps["start_location"]["lng"];
@@ -169,14 +172,9 @@ class MapController extends Controller
         return response()->json($data);
     }
 
-    public function get_intermediate_pos(){
+    private function get_intermediate_pos($lat, $long){
 
         // Formate in string for the api call
-        /*$origin = $origin_pos[0].','.$origin_pos[1];
-        $destination = $site_dest_pos[0].','.$site_dest_pos[1];
-        */
-
-        //Test
         $devices = Device::all();
         $stack = array();
         foreach($devices as $device) {
@@ -185,7 +183,7 @@ class MapController extends Controller
         }
         $array = self::algo_opt($stack);
         $origin = $array[0].','.$array[1];
-        $destination =  '43.543643,1.511001';
+        $destination =  $lat.','.$long;
 
         //----- Get path from google
         $googleapikey = 'AIzaSyB6jCgdJ4mCpM3yUNjv5YF0zphhM8sfROM';

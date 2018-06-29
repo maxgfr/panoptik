@@ -28,7 +28,7 @@ class DataController extends Controller
     {
         $client = new Client();
         $req = 'https://backend.sigfox.com/api/devices/'.$id.'/messages';
-        $result = $client->request('GET', $req, ['auth' =>  ['5b333faa9e93a138cd76e33c', '51373ef70a9aacb8f673a0fa1497dcc0']]);
+        $result = $client->request('GET', $req, ['auth' =>  [Auth::user()->id_connect, Auth::user()->mdp_connect]]);
         if ($result->getStatusCode() == 200) {
             $items = json_decode($result->getBody());
             foreach ($items as $item) {
@@ -68,11 +68,11 @@ class DataController extends Controller
 
     public function saveAllCaptor()
     {
-        $all_id = ['38A758','3893C5','386998','38A790','383D3B', '3868A7', '38695B', '38430B', '38A831', '37B9D5'];
+        $all_dev = Auth::user()->device()->get();
         $client = new Client();
-        for ($it=0; $it<sizeof($all_id); $it++) {
-            $req = 'https://backend.sigfox.com/api/devices/'.$all_id[$it].'/messages';
-            $result = $client->request('GET', $req, ['auth' =>  ['5b333faa9e93a138cd76e33c', '51373ef70a9aacb8f673a0fa1497dcc0']]);
+        foreach ($all_dev as $cpt) {
+            $req = 'https://backend.sigfox.com/api/devices/'.$cpt.'/messages';
+            $result = $client->request('GET', $req, ['auth' =>  [Auth::user()->id_connect, Auth::user()->mdp_connect]]);
             if ($result->getStatusCode() == 200) {
                 $items = json_decode($result->getBody());
                 foreach ($items as $item) {
