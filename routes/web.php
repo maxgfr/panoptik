@@ -37,6 +37,6 @@ Route::get('/map/optimize', 'MapController@index_optimize_pos')->name('map.index
 
 Route::post('/map/position/optimize', 'MapController@position_optimize')->name('map.position_optimize');
 
-Route::get('/map/eta', 'MapController@get_intermediate_pos')->name('map.get_intermediate_pos');
+//Route::get('/map/eta', 'MapController@get_intermediate_pos')->name('map.get_intermediate_pos');
 
 Route::post('/map/path/eta', 'MapController@path_eta')->name('map.path_eta');
