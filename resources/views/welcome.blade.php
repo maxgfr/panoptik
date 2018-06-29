@@ -141,8 +141,8 @@
           </div>
           <div class="col-lg-4">
             <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-              <img class="img-fluid rounded-circle mb-3" src="{{ asset('img/mourad.jpeg') }}" alt="">
-              <h5>Mourad E.</h5>
+              <img class="img-fluid rounded-circle mb-3" src="{{ asset('img/esther.jpeg') }}" alt="">
+              <h5>Esther D.</h5>
               <p class="font-weight-light mb-0">"Thanks so much for making these software!"</p>
             </div>
           </div>
