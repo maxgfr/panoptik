@@ -1,6 +1,6 @@
 # panoptik
 
-A solution which uses Sigfox sensor
+A solution which uses Sigfox sensor to localize precisely container 
 
 ## Landing :
 
