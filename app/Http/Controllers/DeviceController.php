@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Device;
 use App\Http\Requests\DeviceRequest;
+use Auth;
 
 class DeviceController extends Controller
 {
