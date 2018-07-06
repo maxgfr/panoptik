@@ -25,7 +25,7 @@ class DeviceController extends Controller
      */
     public function index()
     {
-        $sensor = Device::get();
+        $sensor =  Auth::user()->device()->get();
         return view('sensor.index', compact('sensor'));
     }
 
