@@ -21,7 +21,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/capteur/{id}', 'DataController@saveOneCaptor')->name('data.saveOneCaptor');
 Route::get('/capteur', 'DataController@saveAllCaptor')->name('data.saveAllCaptor');
-Route::get('/capteur/test', 'DataController@testSaveCaptorFix')->name('data.testSaveCaptorFix');
+Route::get('/test/capteur', 'DataController@testSaveCaptorFix')->name('data.testSaveCaptorFix');
 
 Route::get('/map', 'MapController@index')->name('map.index');
 Route::post('/map/position', 'MapController@position')->name('map.position');
