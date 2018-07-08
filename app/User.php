@@ -32,4 +32,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Device::class, 'users_id');
     }
+
+    public function place()
+    {
+        return $this->hasMany(Place::class, 'users_id');
+    }
 }

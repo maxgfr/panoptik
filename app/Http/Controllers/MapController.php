@@ -8,6 +8,7 @@ use Validator;
 use Response;
 use Illuminate\Support\Facades\Input;
 use App\Place;
+use Auth;
 
 class MapController extends Controller
 {
@@ -35,7 +36,7 @@ class MapController extends Controller
                     'errors' => $validator->getMessageBag()->toArray(),
             ));
         } else {
-            $devices = Device::get();
+            $devices = Auth::user()->device()->get();
             foreach($devices as $device) {
                 $positions = $device->data()->get();
                     foreach($positions as $pos){
@@ -65,7 +66,7 @@ class MapController extends Controller
                     'errors' => $validator->getMessageBag()->toArray(),
             ));
         } else {
-            $devices = Device::get();
+            $devices = Auth::user()->device()->get();
             foreach($devices as $device) {
                 $positions = $device->data()->get();
                     foreach($positions as $pos){
@@ -90,7 +91,7 @@ class MapController extends Controller
                     'errors' => $validator->getMessageBag()->toArray(),
             ));
         } else {
-            $devices = Device::get();
+            $devices = Auth::user()->device()->get();
             foreach($devices as $device) {
                 $position = $device->data()->orderBy('time', 'desc')->first();
                 $data['features'][] = array(
@@ -112,7 +113,7 @@ class MapController extends Controller
 
     public function index_optimize_pos()
     {
-        $place = Place::get();
+        $place = Auth::user()->place()->get();
         return view('map.map_opt', compact('place'));
     }
 
@@ -125,7 +126,7 @@ class MapController extends Controller
                     'errors' => $validator->getMessageBag()->toArray(),
             ));
         } else {
-            $devices = Device::get();
+            $devices = Auth::user()->device()->get();
             $stack = array();
             foreach($devices as $device) {
                 if(!empty($device->data()->get())) {
@@ -177,7 +178,7 @@ class MapController extends Controller
     private function get_intermediate_pos($lat, $long){
 
         // Formate in string for the api call
-        $devices = Device::get();
+        $devices = Auth::user()->device()->get();
         $stack = array();
         foreach($devices as $device) {
             $position = $device->data()->orderBy('time', 'desc')->first();

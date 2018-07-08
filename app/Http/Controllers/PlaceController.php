@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Place;
 use App\Http\Requests\PlaceRequest;
+use Auth;
 
 class PlaceController extends Controller
 {
@@ -25,7 +26,7 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        $place = Place::get();
+        $place = Auth::user()->place()->get();
         return view('place.index', compact('place'));
     }
 
