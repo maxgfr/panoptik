@@ -23,7 +23,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
-    <script src="{{ asset('/assets/js/require.min.js') }}"></script>
+
     <!-- Map stuff with leaflet and open street map -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin=""/>
     <link rel="stylesheet" href="{{ asset('css/MarkerCluster.css') }}" />
@@ -33,6 +33,7 @@
     <script src="{{ asset('js/leaflet.ajax.min.js') }}"></script>
     <script src="https://unpkg.com/leaflet.markercluster@1.2.0/dist/leaflet.markercluster.js"></script>
 
+    <script src="{{ asset('/assets/js/require.min.js') }}"></script>
     <script>
       requirejs.config({
           baseUrl: '.'
