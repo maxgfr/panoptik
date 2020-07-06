@@ -189,7 +189,7 @@ class MapController extends Controller
         $destination =  $lat.','.$long;
 
         //----- Get path from google
-        $googleapikey = 'AIzaSyB6jCgdJ4mCpM3yUNjv5YF0zphhM8sfROM';
+        $googleapikey = 'XXXXXXXXXXXXXXXXXXX';
         $api_request = 'http://maps.googleapis.com/maps/api/directions/json?origin='.$origin.'&destination='.$destination;
 
         $options = array(
